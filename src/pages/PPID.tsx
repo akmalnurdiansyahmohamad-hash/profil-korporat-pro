@@ -2,24 +2,15 @@ import { Layout } from "@/components/layout/Layout";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { FileText, Download, BookOpen, Scale, HelpCircle, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const documents = [
-  { title: "Laporan Tahunan 2024", category: "Laporan", size: "4.2 MB", date: "15 Januari 2025" },
-  { title: "Laporan Keuangan Q3 2024", category: "Keuangan", size: "2.8 MB", date: "20 Oktober 2024" },
-  { title: "Laporan Keberlanjutan 2023", category: "CSR", size: "5.1 MB", date: "1 Maret 2024" },
-  { title: "Profil Perusahaan 2024", category: "Umum", size: "8.5 MB", date: "10 Februari 2024" },
-  { title: "Laporan GCG 2023", category: "Tata Kelola", size: "3.2 MB", date: "28 Februari 2024" },
-  { title: "Kode Etik Perusahaan", category: "Kebijakan", size: "1.1 MB", date: "1 Januari 2023" },
-];
-
-const regulations = [
-  { title: "Kebijakan Anti Korupsi", desc: "Pedoman pencegahan dan penanganan praktik korupsi di lingkungan perusahaan." },
-  { title: "Kebijakan Whistleblowing", desc: "Mekanisme pelaporan pelanggaran secara aman dan rahasia." },
-  { title: "Kebijakan Manajemen Risiko", desc: "Kerangka kerja identifikasi, analisis, dan mitigasi risiko perusahaan." },
-  { title: "Kebijakan Keselamatan Kerja", desc: "Standar K3 yang diterapkan di seluruh proyek dan fasilitas perusahaan." },
-];
+import { usePageContent } from "@/hooks/usePageContent";
+import { defaultContent } from "@/content/defaultContent";
 
 const PPID = () => {
+  const { content } = usePageContent("ppid", defaultContent.ppid);
+  const hero = content.hero;
+  const documents = content.documents;
+  const regulations = content.regulations;
+
   return (
     <Layout>
       {/* Hero */}
@@ -27,14 +18,13 @@ const PPID = () => {
         <div className="container">
           <FadeIn>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] gold-accent mb-3">
-              Pejabat Pengelola Informasi & Dokumentasi
+              {hero.eyebrow}
             </p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground max-w-3xl">
-              Informasi Publik
+              {hero.heading}
             </h1>
             <p className="text-primary-foreground/70 mt-4 max-w-xl">
-              Keterbukaan informasi sebagai wujud komitmen kami terhadap transparansi 
-              dan akuntabilitas perusahaan.
+              {hero.description}
             </p>
           </FadeIn>
         </div>
@@ -49,8 +39,8 @@ const PPID = () => {
                 <FileText className="h-5 w-5 text-accent" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-foreground">Dokumen Publik</h2>
-                <p className="text-sm text-muted-foreground">Unduh dokumen resmi perusahaan</p>
+                <h2 className="text-2xl font-bold text-foreground">{content.documentsHeading}</h2>
+                <p className="text-sm text-muted-foreground">{content.documentsSubheading}</p>
               </div>
             </div>
           </FadeIn>
@@ -70,7 +60,12 @@ const PPID = () => {
                       </p>
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" className="text-accent">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-accent"
+                    onClick={() => window.open(doc.url, '_blank')}
+                  >
                     <Download className="h-4 w-4" />
                   </Button>
                 </div>
@@ -89,8 +84,8 @@ const PPID = () => {
                 <Scale className="h-5 w-5 text-accent" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-foreground">Regulasi & Kebijakan</h2>
-                <p className="text-sm text-muted-foreground">Kebijakan perusahaan yang berlaku</p>
+                <h2 className="text-2xl font-bold text-foreground">{content.regulationsHeading}</h2>
+                <p className="text-sm text-muted-foreground">{content.regulationsSubheading}</p>
               </div>
             </div>
           </FadeIn>
@@ -104,7 +99,10 @@ const PPID = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">{reg.title}</h3>
                       <p className="text-sm text-muted-foreground">{reg.desc}</p>
-                      <button className="text-xs text-accent font-medium mt-2 flex items-center gap-1 hover:underline">
+                      <button 
+                      className="text-xs text-accent font-medium mt-2 flex items-center gap-1 hover:underline"
+                      onClick={() => window.open(reg.url, '_blank')}
+                    >
                         Baca selengkapnya <ExternalLink className="h-3 w-3" />
                       </button>
                     </div>
@@ -125,32 +123,18 @@ const PPID = () => {
                 <HelpCircle className="h-7 w-7 text-accent" />
               </div>
               <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
-                Mekanisme Permohonan Informasi
+                {content.requestHeading}
               </h2>
               <p className="text-muted-foreground mb-6">
-                Sesuai dengan UU No. 14 Tahun 2008 tentang Keterbukaan Informasi Publik, 
-                masyarakat dapat mengajukan permohonan informasi kepada PPID perusahaan.
+                {content.requestDescription}
               </p>
               <div className="text-left bg-muted/50 rounded-xl p-6 space-y-4 text-sm">
-                <div>
-                  <p className="font-semibold text-foreground mb-1">1. Mengajukan Permohonan</p>
-                  <p className="text-muted-foreground">
-                    Kirim surat permohonan informasi melalui email ke ppid@nusantarasejahtera.co.id 
-                    atau datang langsung ke kantor pusat.
-                  </p>
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground mb-1">2. Verifikasi & Proses</p>
-                  <p className="text-muted-foreground">
-                    PPID akan memverifikasi dan memproses permohonan dalam waktu 10 hari kerja.
-                  </p>
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground mb-1">3. Penyampaian Informasi</p>
-                  <p className="text-muted-foreground">
-                    Informasi akan disampaikan sesuai format yang diminta melalui media yang disepakati.
-                  </p>
-                </div>
+                {content.requestSteps.map((step, i) => (
+                  <div key={i}>
+                    <p className="font-semibold text-foreground mb-1">{step.title}</p>
+                    <p className="text-muted-foreground">{step.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </FadeIn>

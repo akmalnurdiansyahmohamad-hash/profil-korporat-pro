@@ -2,8 +2,13 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { usePageContent } from "@/hooks/usePageContent";
+import { defaultContent } from "@/content/defaultContent";
 
 export function CTASection() {
+  const { content } = usePageContent("beranda", defaultContent.beranda);
+  const cta = content.cta;
+
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Background */}
@@ -15,24 +20,23 @@ export function CTASection() {
       <div className="container relative z-10 text-center">
         <FadeIn>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] gold-accent mb-4">
-            Siap Bermitra?
+            {cta.eyebrow}
           </p>
           <h2 className="text-3xl lg:text-4xl font-bold text-primary-foreground mb-4 max-w-2xl mx-auto">
-            Mari Wujudkan Proyek Anda Bersama Kami
+            {cta.heading}
           </h2>
           <p className="text-primary-foreground/70 mb-8 max-w-lg mx-auto">
-            Hubungi tim kami untuk konsultasi dan kolaborasi. Kami siap memberikan solusi 
-            terbaik untuk kebutuhan bisnis Anda.
+            {cta.description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="hero" size="lg" asChild>
-              <Link to="/kontak">
-                Hubungi Kami
+              <Link to={cta.primaryCtaTo}>
+                {cta.primaryCtaLabel}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button variant="heroOutline" size="lg" asChild>
-              <Link to="/profil">Pelajari Lebih Lanjut</Link>
+              <Link to={cta.secondaryCtaTo}>{cta.secondaryCtaLabel}</Link>
             </Button>
           </div>
         </FadeIn>

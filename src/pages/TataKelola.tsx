@@ -1,5 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { usePageContent } from "@/hooks/usePageContent";
+import { defaultContent } from "@/content/defaultContent";
 
 interface BoardMember {
   name: string;
@@ -7,54 +9,6 @@ interface BoardMember {
   description: string;
   initials: string;
 }
-
-const direksi: BoardMember[] = [
-  {
-    name: "Ahmad Surya Wijaya",
-    position: "Direktur Utama",
-    description: "Memimpin perseroan sejak 2018 dengan pengalaman lebih dari 25 tahun di industri infrastruktur dan energi. Lulusan S2 Teknik Sipil dari ITB dan MBA dari Universitas Indonesia.",
-    initials: "AS",
-  },
-  {
-    name: "Sri Mulyani Rahayu",
-    position: "Direktur Keuangan",
-    description: "Bertanggung jawab atas pengelolaan keuangan perusahaan. Berpengalaman 20 tahun di bidang keuangan korporasi. Lulusan S2 Akuntansi dari Universitas Gadjah Mada.",
-    initials: "SM",
-  },
-  {
-    name: "Bambang Prasetyo",
-    position: "Direktur Operasional",
-    description: "Mengawasi seluruh operasional proyek di empat divisi utama. Berpengalaman dalam manajemen proyek berskala besar. Lulusan S2 Manajemen Konstruksi dari ITS.",
-    initials: "BP",
-  },
-  {
-    name: "Ratna Dewi Kusuma",
-    position: "Direktur SDM & Umum",
-    description: "Memimpin pengembangan sumber daya manusia dan tata kelola perusahaan. Berpengalaman 18 tahun di bidang HR. Lulusan S2 Psikologi Industri dari UI.",
-    initials: "RD",
-  },
-];
-
-const komisaris: BoardMember[] = [
-  {
-    name: "Prof. Dr. Hartono Subroto",
-    position: "Komisaris Utama",
-    description: "Akademisi dan praktisi berpengalaman di bidang teknik sipil dan infrastruktur. Guru Besar di Universitas Indonesia dengan berbagai penghargaan nasional.",
-    initials: "HS",
-  },
-  {
-    name: "Dr. Siti Nurhaliza",
-    position: "Komisaris",
-    description: "Pakar ekonomi pembangunan dengan pengalaman luas di sektor publik dan swasta. Mantan pejabat di Kementerian Pekerjaan Umum dan Perumahan Rakyat.",
-    initials: "SN",
-  },
-  {
-    name: "Ir. Budi Santoso",
-    position: "Komisaris Independen",
-    description: "Profesional independen dengan keahlian di bidang tata kelola perusahaan dan audit. Berpengalaman 30 tahun di industri keuangan dan infrastruktur.",
-    initials: "BS",
-  },
-];
 
 function MemberCard({ member }: { member: BoardMember }) {
   return (
@@ -76,6 +30,11 @@ function MemberCard({ member }: { member: BoardMember }) {
 }
 
 const TataKelola = () => {
+  const { content } = usePageContent("tata-kelola", defaultContent["tata-kelola"]);
+  const hero = content.hero;
+  const direksi = (content.direksi ?? []) as BoardMember[];
+  const komisaris = (content.komisaris ?? []) as BoardMember[];
+
   return (
     <Layout>
       {/* Hero */}
@@ -83,14 +42,13 @@ const TataKelola = () => {
         <div className="container">
           <FadeIn>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] gold-accent mb-3">
-              Good Corporate Governance
+              {hero.eyebrow}
             </p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground max-w-3xl">
-              Tata Kelola Perusahaan
+              {hero.heading}
             </h1>
             <p className="text-primary-foreground/70 mt-4 max-w-xl">
-              Kami berkomitmen menerapkan prinsip-prinsip tata kelola perusahaan yang baik 
-              demi transparansi, akuntabilitas, dan keberlanjutan.
+              {hero.description}
             </p>
           </FadeIn>
         </div>

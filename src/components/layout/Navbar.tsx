@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, Building2 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { usePageContent } from "@/hooks/usePageContent";
+import { defaultContent } from "@/content/defaultContent";
 
 const navItems = [
   { label: "Beranda", path: "/" },
@@ -16,17 +18,30 @@ const navItems = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { content } = usePageContent("beranda", defaultContent.beranda);
+  const brand = (content as any).brand ?? defaultContent.beranda.brand;
+
+  const companyName = brand?.companyName ?? "PT Nusantara Sejahtera";
+  const companyTagline = brand?.companyTagline ?? "Mandiri";
+  const companyAbbreviation = brand?.companyAbbreviation ?? "NSM";
+  const logoType = brand?.logoType ?? "icon";
+  const logoUrl = brand?.logoUrl ?? "";
+  const logoAlt = brand?.logoAlt ?? companyName;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center">
-            <Building2 className="h-5 w-5 text-primary-foreground" />
+          <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center overflow-hidden">
+            {logoType === "image" && logoUrl ? (
+              <img src={logoUrl} alt={logoAlt} className="h-full w-full object-cover" />
+            ) : (
+              <Building2 className="h-5 w-5 text-primary-foreground" />
+            )}
           </div>
           <div className="hidden sm:block">
-            <p className="font-bold text-base text-foreground leading-tight">PT Nusantara Sejahtera</p>
-            <p className="text-[10px] text-muted-foreground tracking-widest uppercase">Mandiri</p>
+            <p className="font-bold text-base text-foreground leading-tight">{companyName}</p>
+            <p className="text-[10px] text-muted-foreground tracking-widest uppercase">{companyTagline}</p>
           </div>
         </Link>
 
@@ -59,10 +74,14 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <div className="flex items-center gap-2 mb-8 mt-2">
-                <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                  <Building2 className="h-4 w-4 text-primary-foreground" />
+                <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center overflow-hidden">
+                  {logoType === "image" && logoUrl ? (
+                    <img src={logoUrl} alt={logoAlt} className="h-full w-full object-cover" />
+                  ) : (
+                    <Building2 className="h-4 w-4 text-primary-foreground" />
+                  )}
                 </div>
-                <span className="font-bold text-foreground">NSM</span>
+                <span className="font-bold text-foreground">{companyAbbreviation}</span>
               </div>
               <nav className="flex flex-col gap-1">
                 {navItems.map((item) => (

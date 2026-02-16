@@ -3,8 +3,13 @@ import { ArrowRight, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-corporate.jpg";
+import { usePageContent } from "@/hooks/usePageContent";
+import { defaultContent } from "@/content/defaultContent";
 
 export function HeroSection() {
+  const { content } = usePageContent("beranda", defaultContent.beranda);
+  const hero = content.hero;
+
   return (
     <section className="relative min-h-[85vh] flex items-center overflow-hidden">
       {/* Background image */}
@@ -24,7 +29,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <p className="text-sm font-semibold uppercase tracking-[0.2em] gold-accent mb-4">
-              Membangun Indonesia Sejak 1998
+              {hero.tagline}
             </p>
           </motion.div>
 
@@ -34,8 +39,8 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            Solusi Infrastruktur{" "}
-            <span className="gold-accent">Terpercaya</span> untuk Indonesia
+            {hero.headingPrefix}{" "}
+            <span className="gold-accent">{hero.headingHighlight}</span> {hero.headingSuffix}
           </motion.h1>
 
           <motion.p
@@ -44,8 +49,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            PT Nusantara Sejahtera Mandiri adalah perusahaan terkemuka yang bergerak di bidang 
-            infrastruktur, energi, properti, dan teknologi informasi.
+            {hero.description}
           </motion.p>
 
           <motion.div
@@ -55,15 +59,15 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <Button variant="hero" size="lg" asChild>
-              <Link to="/kontak">
-                Hubungi Kami
+              <Link to={hero.primaryCtaTo}>
+                {hero.primaryCtaLabel}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button variant="heroOutline" size="lg" asChild>
-              <Link to="/profil">
+              <Link to={hero.secondaryCtaTo}>
                 <Download className="mr-2 h-4 w-4" />
-                Unduh Profil
+                {hero.secondaryCtaLabel}
               </Link>
             </Button>
           </motion.div>
