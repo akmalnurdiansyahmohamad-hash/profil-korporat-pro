@@ -1,5 +1,13 @@
 export const defaultContent = {
   beranda: {
+    brand: {
+      companyName: "PT Nusantara Sejahtera Mandiri",
+      companyTagline: "Mandiri",
+      companyAbbreviation: "NSM",
+      logoType: "icon" as const,
+      logoUrl: "",
+      logoAlt: "PT Nusantara Sejahtera Mandiri",
+    },
     hero: {
       tagline: "Membangun Indonesia Sejak 1998",
       headingPrefix: "Solusi Infrastruktur",
