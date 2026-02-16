@@ -11,6 +11,7 @@ import Berita from "./pages/Berita";
 import Kontak from "./pages/Kontak";
 import AdminSimple from "./pages/AdminSimple";
 import AdminLogin from "./pages/AdminLogin";
+import AdminProfil from "./pages/AdminProfil";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/kontak" element={<Kontak />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminSimple />} />
+          <Route path="/admin/profil" element={<AdminProfil />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
