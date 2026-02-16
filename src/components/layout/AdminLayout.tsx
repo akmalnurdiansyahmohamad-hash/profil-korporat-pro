@@ -5,7 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { toast } from "sonner";
 import { useSupabaseSession } from "@/hooks/useSupabaseSession";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
-import { Menu, FileText, Home, LogOut } from "lucide-react";
+import { Menu, FileText, Home, LogOut, UserCircle } from "lucide-react";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -19,6 +19,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
   const menuItems = [
     { icon: FileText, label: "Konten", path: "/admin" },
+    { icon: UserCircle, label: "Profil", path: "/admin/profil" },
     { icon: Home, label: "Lihat Situs", path: "/" },
   ];
 
